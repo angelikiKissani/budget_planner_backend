@@ -44,6 +44,16 @@ cron.schedule('0 0 1 * *', async () => {
         });
         console.log('Recalculation "money_per_month" complete.');
 });
+
+// Root route
+app.get('/', (req, res) => {
+        res.send('Hello, World! The server is up and running.');
+    });
+    
+// 404 Error handling
+app.use((req, res) => {
+res.status(404).send('404 - Not Found');
+});
         
 //middlewares
 app.use(express.json({limit:"4mb"}))
