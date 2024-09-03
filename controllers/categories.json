@@ -1,0 +1,164 @@
+        [{
+             "name": "Household"
+           
+        },
+        {
+            "name": "Transportation"
+        },
+        {
+            "name": "Gas"
+        },
+        {
+            "name": "Groceries"
+        },
+        {
+            "name": "Restaurants"
+        },
+        {
+            "name": "Utilities"
+        },
+        {
+            "name": "Pet Care"
+        },
+        {
+            "name": "Medication"
+        },
+        {
+            "name": "Cleaning supplies"
+        },
+        {
+            "name": "Personal Care"
+        },
+        {   
+            "name": "Gym memberships"
+        }, 
+        {
+            "name": "Cosmetics"
+        },
+        {
+            "name": "Education"
+        },
+        {
+            "name": "Special occasion"
+        },
+        {
+            "name": "Uber"
+        },
+        {
+            "name": "Electricity"
+        },
+        {
+            "name": "Water"
+        },
+        {
+            "name": "Gas"
+        },
+        {
+            "name": "Internet"
+        },
+        {
+            "name": "Night Out"
+        },
+        {
+            "name": "Entertainment"
+        },
+        {
+            "name": "Cinema"
+        },
+        {
+            "name": "Museum"
+        },
+        {
+            "name": "Hobbies"
+        },
+        {
+            "name": "Theatre"
+        },
+        {
+            "name": "Subscriptions"
+        },
+        {
+            "name": "Mortgage or rent"
+        },
+        {
+            "name": "Property taxes"
+        },
+        {
+            "name": "Bills"
+        },
+        {
+            "name": "Household repairs"
+        },
+        {
+            "name": "Car Maintenance"
+        },
+        {
+            "name": "Parking fees"
+        },
+        {
+            "name": "Supermarket"
+        },
+        {
+            "name": "Therapy"
+        },
+        {
+            "name": "Clothing"
+        },
+        {
+            "name": "Shopping"
+        },
+        {
+            "name": "Healthcare"
+        },
+        {
+            "name": "Insurance"
+        },
+        {
+            "name": "Household Items"
+        },
+        {
+            "name": "Personal loans"
+        },
+        {
+            "name": "Student loans"
+        },
+        {
+            "name": "Credit cards"
+        },
+        
+        {
+            "name": "College"
+        },
+        {
+            "name": "Gift"
+        },
+        {
+            "name": "Books"
+        },
+        {
+            "name": "Concerts"
+        },
+        {
+            "name": "Vacations"
+        },
+        {
+            "name": "Travel"
+        },
+        {
+            "name": "Food Delivery"
+        },
+        {
+            "name": "Coffee"
+        },
+       
+        {
+            "name": "Takeout"
+        },
+        {
+            "name": "Snacks"
+        },
+        {
+            "name": "I can't remember"
+        }
+        
+    ]
