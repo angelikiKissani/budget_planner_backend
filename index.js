@@ -20,7 +20,7 @@ const morgan =require("morgan");
 const app = express();
 const http =require("http").createServer(app)
 
-mongoose.connect(process.env.DATABASE, { useNewUrlParser: true , useUnifiedTopology: true,'useCreateIndex': true})
+mongoose.connect(process.env.DATABASE)
         .then(()=> console.log("DB connected"))
         .catch((err)=> console.log("DB CONNECTION ERROR: " ,err));
 
