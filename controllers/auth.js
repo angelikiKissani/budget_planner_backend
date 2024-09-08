@@ -67,7 +67,7 @@ export const signup = async (req, res) => {
             // create signed token
             const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {expiresIn: "1d"});
 
-            // console.log(user);
+            
 
             const { password, ...rest } = user._doc;
 
@@ -86,7 +86,7 @@ export const signup = async (req, res) => {
 
 ///////////////SIGNIN/////////////
 export const signin = async (req, res) => {
-console.log(req.body);
+
     try {
 
         const { email, password } = req.body;
@@ -156,7 +156,7 @@ export const forgotPassword = async (req, res) => {
     // send email
     try {
         const data = await sgMail.send(emailData);
-        console.log(data);
+        // console.log(data);
         res.json({ ok: true });
     } catch (err) {
         console.log(err);
