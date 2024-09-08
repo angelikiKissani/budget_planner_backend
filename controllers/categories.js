@@ -4,16 +4,16 @@ const require = createRequire(import.meta.url);
 const data=require('./categories.json');
 
 // console.log(data)
-const importData = async () => {
-    try {
-      await Category.create(data)
-      console.log('data successfully imported')
-      // to exit the process
-      process.exit()
-    } catch (error) {
-      console.log('error', error)
-    }
-  }
+// const importData = async () => {
+//     try {
+//       await Category.create(data)
+//       console.log('data successfully imported')
+//       // to exit the process
+//       process.exit()
+//     } catch (error) {
+//       console.log('error', error)
+//     }
+//   }
 //   importData()
 
 export const addNewCategory = async (req,res) =>{

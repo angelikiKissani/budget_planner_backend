@@ -4,14 +4,13 @@ const router =  express.Router();
 import { signup,signin,forgotPassword,resetPassword,uploadImage,updatePassword,updateName} from "../controllers/auth.js"
 
 
-router.get("/",(req,res)=>{
-    return res.json({
-        data:"helloworld from the API",
-    }).catch(function(error) {
-        console.log('There has been a problem with your fetch operation: ' + error.message);
-         
-          throw error;
-        });;
+router.get("/", (req, res) => {
+  try{
+    return res.json({data: "helloworld from the API"})
+  }catch(error){
+    console.log('There has been a problem with your fetch operation: ' + error.message);
+    throw error;
+  };
 });
 
 router.post("/signup",signup);

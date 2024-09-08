@@ -20,7 +20,7 @@ const morgan =require("morgan");
 const app = express();
 const http =require("http").createServer(app)
 
-mongoose.connect(process.env.DATABASE)
+mongoose.connect(process.env.DATABASE, { useNewUrlParser: true , useUnifiedTopology: true,'useCreateIndex': true})
         .then(()=> console.log("DB connected"))
         .catch((err)=> console.log("DB CONNECTION ERROR: " ,err));
 
@@ -43,16 +43,6 @@ cron.schedule('0 0 1 * *', async () => {
                 await goal.save();
         });
         console.log('Recalculation "money_per_month" complete.');
-});
-
-// Root route
-app.get('/', (req, res) => {
-        res.send('Hello, World! The server is up and running.');
-    });
-    
-// 404 Error handling
-app.use((req, res) => {
-res.status(404).send('404 - Not Found');
 });
         
 //middlewares

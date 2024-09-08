@@ -29,15 +29,15 @@ const userSchema = new Schema(
         required:true,
     },
     image: {
-        public_id: {type:String},
-        url:{type:String},
+        public_id: "",
+        url: "",
     },
     accounting_balance:{
         type:Number,
         default:0,
     },
 
-    resetCode: {type:String},
+    resetCode: "",
     },
     { timestamps: true }
 );

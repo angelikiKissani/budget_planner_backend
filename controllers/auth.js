@@ -14,6 +14,7 @@ cloudinary.config({
 })
 
 import { createRequire } from "module";
+import { error } from "console";
 const require = createRequire(import.meta.url);
 
 // SENDGRID
@@ -85,27 +86,30 @@ export const signup = async (req, res) => {
 
 ///////////////SIGNIN/////////////
 export const signin = async (req, res) => {
-// console.log(req.body);
+console.log(req.body);
     try {
 
         const { email, password } = req.body;
 
         // check for the same email in our database
         const user = await User.findOne({ email });
-        console.log(user);
+        
         if (!user) {
-            return res.json({
-            error: "No user found",
-        });
+            
+            return (
+                res.status(404).json({ error: "No user found" })
+                
+            );
         }
 
         // check for the same password in our database
         const match = await comparePassword(password, user.password);
         
         if (!match) {
-            return res.json({
-            error: "Wrong password",
-        });
+            
+            // throw new Error("Wrong password")
+            return (
+                res.json({ error: "Wrong password" }));
         }
 
         // signed token
@@ -221,6 +225,8 @@ export const uploadImage =async (req,res)=>{
             email:user.email,
             role:user.role,
             image:user.image,
+            savings:user.savings,
+            acounting_balance:user.acounting_balance
         })
     }catch(err){
         console.log(err);

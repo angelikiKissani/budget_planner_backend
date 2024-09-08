@@ -114,8 +114,26 @@ export const deleteGoal = async (req,res) =>{
     try{
         const {name, user_id } = req.body;
         
-        const result= await Goal.findOneAndDelete({name,user_id})
-      return( res.json(result))
+        const goal= await Goal.findOne({name,user_id})
+        const user = await User.findById(user_id)
+        console.log(user.savings,goal.progress)
+        const result2=await User.findByIdAndUpdate(user_id,{
+            savings:user.savings-goal.progress
+        })
+        const result =await Goal.findOneAndDelete({name,user_id})
+        const result3= await User.findById(user_id)
+        res.json(
+            {
+            _id:result3._id,
+            name: result3.name,
+            email:result3.email,
+            role:result3.role,
+            image:result3.image,
+            savings:result3.savings,
+            accounting_balance:result3.accounting_balance
+            }
+        )
+        
 
     }catch (err) {
         console.log(err);
@@ -126,13 +144,29 @@ export const deleteGoal = async (req,res) =>{
 ///////ADD MONEY TO GOAL///////
 export const addMoneyGoal = async(req,res)=>{
     try{
-        const {name,saved_this_month,progress,user_id } = req.body;
+        const {name,saved_this_month,newAdd,progress,user_id } = req.body;
         
         const result= await Goal.findOneAndUpdate({name,user_id},{
             saved_this_month:saved_this_month,
             progress:progress
         },{new: true ,useFindAndModify:false})
-        res.json(result)
+        const user=await User.findById(user_id)
+        const result2 =await User.findByIdAndUpdate(user_id,{
+            savings:user.savings+newAdd
+        })
+        const result3= await User.findById(user_id)
+        console.log(user)
+        res.json(
+            {
+            _id:result3._id,
+            name: result3.name,
+            email:result3.email,
+            role:result3.role,
+            image:result3.image,
+            savings:result3.savings,
+            accounting_balance:result3.accounting_balance
+            }
+        )
         
 
     }catch (err) {
