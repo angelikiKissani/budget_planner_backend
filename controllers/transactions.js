@@ -37,6 +37,8 @@ export const fetchData = async (req,res)=>{
     const {_id}=req.body;
 
     try{
+        const lastTransaction = await Transaction.findOne().sort({date:-1}).exec();
+        console.log(lastTransaction)
         const balance= await User.findById(_id,"accounting_balance")
         const savings= await User.findById(_id,"savings")
         console.log(savings.savings)
