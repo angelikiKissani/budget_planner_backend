@@ -50,15 +50,8 @@ export const insertTransactions= async(req,res)=>{
 
 
 export const fetchData = async (req,res)=>{
-    // const _id=req.body;
-    console.log(req.body)
-
     try{
-        // const lastTransaction = await Transaction.findOne().sort({date:-1}).exec();
-        // console.log(lastTransaction)
         const balance= await User.findById(req.body.id,"accounting_balance")
-        // const savings= await User.findById(_id,"savings")
-        // console.log(savings.savings)
         console.log(balance)
         return(res.json(balance.accounting_balance))
     }catch(err){
@@ -86,9 +79,9 @@ export const addCategory = async (req,res)=>{
 export const fetchTransaction =async (req,res)=>{
     const {user_id} = req.body
     try{
-    const result = await Transaction.find({user_id:user_id})
-    
-    return(res.json({result}))
+    const result1 = await Transaction.find({user_id:user_id})
+    const user = await User.findById(user_id)
+    return(res.json({result1,accounting_balance:user.accounting_balance}))
     }catch(err){console.log(err)}
 }
 
