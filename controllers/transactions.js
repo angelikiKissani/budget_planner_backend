@@ -6,6 +6,20 @@ var ObjectId = require('mongoose').Types.ObjectId;
 import moment from "moment";
 
 
+
+export const receiceTransactions= async (req,res)=>{
+    const data = req.body;
+    console.log(data)
+    // try{
+    //     const result = await Transaction.create({data})
+    //     const result3= await User.updateOne({_id:user_id},{
+    //         accounting_balance: data.at(-1).accounting_balance
+    //     })
+    // }catch (err) {
+    //     console.log(err);
+    // }
+}
+
 export const insertTransactions= async(req,res)=>{
     const {data, user_id,user } = req.body;
     // console.log(data.at(-1).accounting_balance);
