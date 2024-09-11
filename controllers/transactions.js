@@ -51,6 +51,7 @@ export const insertTransactions= async(req,res)=>{
 
 export const fetchData = async (req,res)=>{
     const {_id}=req.body;
+    console.log(_id)
 
     try{
         // const lastTransaction = await Transaction.findOne().sort({date:-1}).exec();
@@ -58,7 +59,8 @@ export const fetchData = async (req,res)=>{
         const balance= await User.findById(_id,"accounting_balance")
         // const savings= await User.findById(_id,"savings")
         // console.log(savings.savings)
-        return(res.json({balance:balance.accounting_balance}))
+        console.log(balance)
+        return(res.json({balance}))
     }catch(err){
         console.log(err)
     }
