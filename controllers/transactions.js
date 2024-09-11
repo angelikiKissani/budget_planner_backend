@@ -91,7 +91,7 @@ export const fetchTransaction =async (req,res)=>{
             savings:user.savings,
             accounting_balance:user.accounting_balance
         }
-        e}))
+    }))
     }catch(err){console.log(err)}
 }
 
