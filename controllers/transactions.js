@@ -51,7 +51,7 @@ export const insertTransactions= async(req,res)=>{
 
 export const fetchData = async (req,res)=>{
     const _id=req.body;
-    console.log(req_body)
+    console.log(req.body)
 
     try{
         // const lastTransaction = await Transaction.findOne().sort({date:-1}).exec();
