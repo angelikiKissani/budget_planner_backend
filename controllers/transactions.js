@@ -11,7 +11,7 @@ export const receiveTransaction= async (req,res)=>{
     const data = req.body;
     console.log(data)
     try{
-        const result = await Transaction.create({data})
+        const result = await Transaction.create(data)
         const result2= await User.updateOne({_id:data.user_id},{
             accounting_balance: data.accounting_balance
         })
