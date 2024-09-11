@@ -10,14 +10,16 @@ import moment from "moment";
 export const receiveTransaction= async (req,res)=>{
     const data = req.body;
     console.log(data)
-    // try{
-    //     const result = await Transaction.create({data})
-    //     const result3= await User.updateOne({_id:user_id},{
-    //         accounting_balance: data.at(-1).accounting_balance
-    //     })
-    // }catch (err) {
-    //     console.log(err);
-    // }
+    try{
+        const result = await Transaction.create({data})
+        const result2= await User.updateOne({_id:data.user_id},{
+            accounting_balance: data.accounting_balance
+        })
+        res.status(200).json({ success: true, result, result2 }); 
+  
+    }catch (err) {
+        res.status(500).json({ success: false, error: err.message }); 
+    }
 }
 
 export const insertTransactions= async(req,res)=>{
