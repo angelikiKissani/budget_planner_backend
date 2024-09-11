@@ -81,7 +81,17 @@ export const fetchTransaction =async (req,res)=>{
     try{
     const result1 = await Transaction.find({user_id:user_id})
     const user = await User.findById(user_id)
-    return(res.json({result1,accounting_balance:user.accounting_balance}))
+    return(res.json({result1,
+        user:{
+            _id:user._id,
+            name: user.name,
+            email:user.email,
+            role:user.role,
+            image:user.image,
+            savings:user.savings,
+            accounting_balance:user.accounting_balance
+        }
+        e}))
     }catch(err){console.log(err)}
 }
 
