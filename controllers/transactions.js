@@ -60,7 +60,7 @@ export const fetchData = async (req,res)=>{
         // const savings= await User.findById(_id,"savings")
         // console.log(savings.savings)
         console.log(balance)
-        return(res.json({balance}))
+        return(res.json(balance.accounting_balance))
     }catch(err){
         console.log(err)
     }
