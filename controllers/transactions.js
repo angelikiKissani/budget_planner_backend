@@ -7,7 +7,7 @@ import moment from "moment";
 
 
 
-export const receiceTransactions= async (req,res)=>{
+export const receiveTransaction= async (req,res)=>{
     const data = req.body;
     console.log(data)
     // try{
