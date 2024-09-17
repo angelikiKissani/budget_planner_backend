@@ -117,8 +117,9 @@ export const deleteGoal = async (req,res) =>{
         const goal= await Goal.findOne({name,user_id})
         const user = await User.findById(user_id)
         console.log(user.savings,goal.progress)
+        const savingsChange=user.savings-goal.progress
         const result2=await User.findByIdAndUpdate(user_id,{
-            savings:user.savings-goal.progress
+            savings:parseFloat(savingsChange.toFixed(1))
         })
         const result =await Goal.findOneAndDelete({name,user_id})
         const result3= await User.findById(user_id)
