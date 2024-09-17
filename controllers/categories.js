@@ -59,7 +59,7 @@ export const addNewCategory = async (req,res) =>{
 
 export const fetchCategories = async  (req,res) =>{
     const {user_id} = req.body
-    console.log(user_id)
+    // console.log(user_id)
     try{
     const result1=await Category.find({user_id:'general'});
     const result2 = await Category.find({user_id});

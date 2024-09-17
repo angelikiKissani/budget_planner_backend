@@ -23,6 +23,10 @@ const transactionSchema = new Schema(
             type: String,
             
         },
+        goal:{
+            goal_id:"",
+            goal_name:""
+        },
         price:{
             type: Number,
             required:true
