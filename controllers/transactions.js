@@ -1,5 +1,6 @@
 import User from "../models/user.js";
 import Transaction from "../models/transaction.js"
+import Goal from "../models/goal.js"
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 var ObjectId = require('mongoose').Types.ObjectId;
@@ -193,7 +194,7 @@ export const removeGoalCategory=async (req,res)=>{
                 goal_id:"",
                 goal_name:""
             }
-        })
+        },{useFindAndModify:false})
         console.log(transaction_b.goal.goal_name)
         const goal= await Goal.findOne({user_id:user_id,name:transaction_b.goal.goal_name})
         console.log(goal.progress)
