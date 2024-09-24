@@ -67,6 +67,6 @@ goalSchema.methods.calculateMoneyPerMonth =function(){
     
     const months_remaining = (finishDate.year()-today.year())*12 +(finishDate.month()-today.month())+1;
     // console.log(this.name, (this.goal_money-this.progress)/months_remaining)
-    this.money_per_month = (this.goal_money-this.progress)/months_remaining;
+    this.money_per_month = parseFloat(((this.goal_money - this.progress) / months_remaining).toFixed(1));
 }
 export default mongoose.model("Goal", goalSchema);
