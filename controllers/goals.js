@@ -142,16 +142,33 @@ export const deleteGoal = async (req,res) =>{
 
 }
 
-///////ADD MONEY TO GOAL///////
+///////ADD/REMOVE MONEY TO GOAL///////
 export const addMoneyGoal = async(req,res)=>{
     try{
         const {name,saved_this_month,newAdd,progress,user_id } = req.body;
         
+
+        const user = await User.findById(user_id);
+        
+        if (!user) {
+          return res.status(404).json({ success: false, message: "User not found" });
+        }
+        const currentSavings = user.savings;
+        const accountingBalance = user.accounting_balance; 
+        const availableBalance = accountingBalance - currentSavings;
+
+        if (availableBalance < newAdd) {
+            return res.status(400).json({
+              success: false,
+              message: `Not enough savings to add ${newAdd} EUR to the goal. Available balance: ${availableBalance} EUR`,
+            });
+          }
+
         const result= await Goal.findOneAndUpdate({name,user_id},{
             saved_this_month:saved_this_month,
             progress:progress
         },{new: true ,useFindAndModify:false})
-        const user=await User.findById(user_id)
+        // const user=await User.findById(user_id)
         const result2 =await User.findByIdAndUpdate(user_id,{
             savings:user.savings+newAdd
         })
