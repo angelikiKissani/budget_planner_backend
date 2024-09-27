@@ -8,6 +8,85 @@ import moment from "moment";
 
 
 
+// export const receiveTransaction= async (req,res)=>{
+//     const data = req.body;
+//     console.log(data)
+//     try{
+//         const result = await Transaction.create(data)
+
+//         const user = await User.findOne({ _id: data.user_id });
+
+//         if (!user) {
+//           return res.status(404).json({ success: false, message: "User not found" });
+//         }
+    
+//         const currentSavings = user.savings;
+//         const accountingBalance = data.accounting_balance; 
+//         const availableBalance = accountingBalance - currentSavings;
+
+//         if (availableBalance < 0) {
+//             console.log(`Excess amount detected: ${availableBalance} EUR. Adjusting savings...`);
+
+//             //find all goals
+//             // const userGoals = await Goal.find({ user_id });
+//             // if (!userGoals || userGoals.length === 0) {
+//             //     return res.status(404).json({ success: false, message: "No goals found for this user." });
+//             //   }
+
+
+//             // for (const goal of userGoals) {
+//             // // Calculate the proportion of savings to remove from this goal
+//             //     const proportionToRemove = parseFloat((goal.progress / currentSavings) * Math.abs(availableBalance)).toFixed(1);
+        
+//             //     // Update this goal's savings for this month
+//             //     const newProgress = Math.max(0, goal.progress - proportionToRemove);
+
+
+//             //     const today =moment();
+//             //     const finishDate = moment(goal.finish_date, "DD-MM-YYYY");
+//             //     if(today.month()>finishDate.month() && !(today.year()<finishDate.year())){
+//             //         continue
+//             //     }
+//             //     // Check if the goal is still ongoing
+//             //     if (today.isAfter(finishDate, 'month')) {
+//             //         continue;  // Skip updating this goal if the finish date has passed
+//             //     }
+        
+                
+//             //     const months_remaining = (finishDate.year()-today.year())*12 +(finishDate.month()-today.month())+1;
+//             //     const new_money_per_month = parseFloat(((goal.goal_money - newProgress) / months_remaining).toFixed(1));
+
+        
+//             //     // Update the goal in the database
+//             //     await Goal.updateOne(
+//             //         { _id: goal._id },
+//             //         { progress: newProgress,
+//             //         saved_this_month:0,
+//             //         money_per_month: new_money_per_month
+
+//             //         }
+//             //     );
+//             // }
+
+//             // //update savings
+//             // const newsavings= currentSavings+availableBalance;
+//             // await User.findOneAndUpdate({ _id: data.user_id },{
+//             //     savings: newsavings ,
+//             // });
+
+//         }
+
+
+//         const result2= await User.updateOne({_id:data.user_id},{
+//             accounting_balance: data.accounting_balance
+//         })
+//         res.status(200).json({ success: true, result, result2 }); 
+  
+//     }catch (err) {
+//         res.status(500).json({ success: false, error: err.message }); 
+//     }
+// }
+
 export const receiveTransaction= async (req,res)=>{
     const data = req.body;
     console.log(data)
@@ -27,16 +106,17 @@ export const receiveTransaction= async (req,res)=>{
         if (availableBalance < 0) {
             console.log(`Excess amount detected: ${availableBalance} EUR. Adjusting savings...`);
 
-            //find all goals
-            const userGoals = await Goal.find({ user_id });
+            // find all goals
+            const userGoals = await Goal.find({ user_id:data.user_id });
             if (!userGoals || userGoals.length === 0) {
                 return res.status(404).json({ success: false, message: "No goals found for this user." });
               }
 
 
+
             for (const goal of userGoals) {
             // Calculate the proportion of savings to remove from this goal
-                const proportionToRemove = parseFloat((goal.progress / currentSavings) * Math.abs(availableBalance)).toFixed(1);
+                const proportionToRemove = parseFloat((goal.progress / currentSavings) * Math.abs(availableBalance).toFixed(1));
         
                 // Update this goal's savings for this month
                 const newProgress = Math.max(0, goal.progress - proportionToRemove);
@@ -55,12 +135,14 @@ export const receiveTransaction= async (req,res)=>{
                 
                 const months_remaining = (finishDate.year()-today.year())*12 +(finishDate.month()-today.month())+1;
                 const new_money_per_month = parseFloat(((goal.goal_money - newProgress) / months_remaining).toFixed(1));
-
+                
+                
+                console.log("goal:"+goal.name+"\n"+"progress:"+newProgress+"moneypermonth"+new_money_per_month+"\n")
         
                 // Update the goal in the database
                 await Goal.updateOne(
                     { _id: goal._id },
-                    { progress: newProgress,
+                    { progress: parseFloat(newProgress.toFixed(1)),
                     saved_this_month:0,
                     money_per_month: new_money_per_month
 
@@ -70,6 +152,8 @@ export const receiveTransaction= async (req,res)=>{
 
             //update savings
             const newsavings= currentSavings+availableBalance;
+
+            console.log("new savings:"+newsavings)
             await User.findOneAndUpdate({ _id: data.user_id },{
                 savings: newsavings ,
             });

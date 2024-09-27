@@ -143,17 +143,68 @@ export const deleteGoal = async (req,res) =>{
 }
 
 ///////ADD MONEY TO GOAL///////
+// export const addMoneyGoal = async(req,res)=>{
+//     try{
+//         const {name,saved_this_month,newAdd,progress,user_id } = req.body;
+        
+//         const result= await Goal.findOneAndUpdate({name,user_id},{
+//             saved_this_month:saved_this_month,
+//             progress:progress
+//         },{new: true ,useFindAndModify:false})
+//         const user=await User.findById(user_id)
+//         const result2 =await User.findByIdAndUpdate(user_id,{
+//             savings:user.savings+newAdd
+//         })
+//         const result3= await User.findById(user_id)
+//         console.log(user)
+//         res.json(
+//             {
+//             _id:result3._id,
+//             name: result3.name,
+//             email:result3.email,
+//             role:result3.role,
+//             image:result3.image,
+//             savings:result3.savings,
+//             accounting_balance:result3.accounting_balance
+//             }
+//         )
+        
+
+//     }catch (err) {
+//         console.log(err);
+//     }
+
+// }
+
 export const addMoneyGoal = async(req,res)=>{
     try{
         const {name,saved_this_month,newAdd,progress,user_id } = req.body;
         
+
+        const user = await User.findById(user_id);
+        
+        if (!user) {
+          return res.status(404).json({ success: false, message: "User not found" });
+        }
+        const currentSavings = user.savings;
+        const accountingBalance = user.accounting_balance; 
+        const availableBalance = parseFloat(accountingBalance - currentSavings.toFixed(1));
+
+        if (availableBalance < newAdd) {
+            console.log(`Not enough savings to add ${newAdd} EUR to the goal. Available balance: ${availableBalance} EUR`)
+            return res.json({
+              success: false,
+              message: `Not enough savings to add ${newAdd} EUR to the goal. Available balance: ${availableBalance} EUR`,
+            });
+          }
+
         const result= await Goal.findOneAndUpdate({name,user_id},{
             saved_this_month:saved_this_month,
             progress:progress
         },{new: true ,useFindAndModify:false})
-        const user=await User.findById(user_id)
+        // const user=await User.findById(user_id)
         const result2 =await User.findByIdAndUpdate(user_id,{
-            savings:user.savings+newAdd
+            savings:parseFloat((user.savings+newAdd).toFixed(1))
         })
         const result3= await User.findById(user_id)
         console.log(user)
@@ -175,7 +226,6 @@ export const addMoneyGoal = async(req,res)=>{
     }
 
 }
-
 
 ////////UPDATE GOAL////////
 export const updateGoal =async (req,res)=>{
